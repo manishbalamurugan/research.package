@@ -85,17 +85,15 @@ class _RPUIInstructionStepState extends State<RPUIInstructionStep> {
 class _DetailTextRoute extends StatelessWidget {
   final String content;
 
-  _DetailTextRoute({ this.content});
+  _DetailTextRoute({this.content});
 
   @override
   Widget build(BuildContext context) {
     RPLocalizations locale = RPLocalizations.of(context);
-    return Scaffold(
-      body: Container(
+    return Container(
         padding: EdgeInsets.all(15.0),
         child: Text(locale?.translate(this.content) ?? this.content),
-      ),
-    );
+      );
   }
 }
 
