@@ -29,7 +29,6 @@ class _RPUIInstructionStepState extends State<RPUIInstructionStep> {
       MaterialPageRoute(
         builder: (context) {
           return _DetailTextRoute(
-            title: widget.step.title,
             content: widget.step.detailText,
           );
         },
@@ -84,18 +83,14 @@ class _RPUIInstructionStepState extends State<RPUIInstructionStep> {
 }
 
 class _DetailTextRoute extends StatelessWidget {
-  final String title;
   final String content;
 
-  _DetailTextRoute({this.title, this.content});
+  _DetailTextRoute({ this.content});
 
   @override
   Widget build(BuildContext context) {
     RPLocalizations locale = RPLocalizations.of(context);
     return Scaffold(
-      appBar: AppBar(
-        title: Text(locale?.translate(this.title) ?? this.title),
-      ),
       body: Container(
         padding: EdgeInsets.all(15.0),
         child: Text(locale?.translate(this.content) ?? this.content),
