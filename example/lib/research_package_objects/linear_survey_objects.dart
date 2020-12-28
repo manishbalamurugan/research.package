@@ -128,6 +128,7 @@ RPOrderedTask linearSurveyTask = RPOrderedTask(
   "surveyTaskID",
   [
     instructionStep,
+    singleChoiceQuestionStep,
     formStep,
     smokingQuestionStep,
     sliderQuestionStep,
@@ -135,7 +136,6 @@ RPOrderedTask linearSurveyTask = RPOrderedTask(
     dateAndTimeQuestionStep,
     dateQuestionStep,
     imageChoiceQuestionStep,
-    singleChoiceQuestionStep,
     happinessChoiceQuestionStep,
     weightQuestionStep,
     completionStep

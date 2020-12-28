@@ -191,6 +191,7 @@ class _RPUITaskState extends State<RPUITask> with CanSaveResult {
           return AppBar(
 //            title: Text(recentTaskProgress != null ? "${recentTaskProgress?.current} ${locale?.translate('of') ?? 'of'} ${recentTaskProgress?.total}" : ""),
             automaticallyImplyLeading: false,
+            backgroundColor: Colors.white,
             actions: <Widget>[
               IconButton(
                 icon: Icon(
@@ -206,6 +207,7 @@ class _RPUITaskState extends State<RPUITask> with CanSaveResult {
           return AppBar(
 //            title: Text(recentTaskProgress != null ? "${recentTaskProgress?.current} ${locale?.translate('of') ?? 'of'} ${recentTaskProgress?.total}" : ""),
             automaticallyImplyLeading: false,
+            backgroundColor: Colors.white,
             actions: <Widget>[
               IconButton(
                 icon: Icon(
@@ -221,6 +223,7 @@ class _RPUITaskState extends State<RPUITask> with CanSaveResult {
           return AppBar(
             title: Text(locale?.translate(step.title) ?? step.title),
             automaticallyImplyLeading: false,
+            backgroundColor: Colors.white,
             actions: <Widget>[
               IconButton(
                 icon: Icon(
