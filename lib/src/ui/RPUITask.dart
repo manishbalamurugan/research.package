@@ -23,36 +23,27 @@ class RPUITask extends StatefulWidget {
   ///
   /// It's only optional. If nothing is provided (is ```null```) the survey just quits without doing anything with the result.
   final void Function([RPTaskResult result]) onCancel;
-
   RPUITask({this.task, this.onSubmit, this.onCancel});
-
   @override
   _RPUITaskState createState() => _RPUITaskState();
 }
-
 class _RPUITaskState extends State<RPUITask> with CanSaveResult {
   RPTaskResult _taskResult;
-
   /// A list of actual steps to show in the task.
   /// If the task is a [RPNavigableOrderedTask] not all the questions necessarily show up because of branching.
   /// (Some questions could be skipped based on previous answers.)
   /// It is a dynamic list which grows and shrinks according to the forward of back navigation of the task.
   List<RPStep> _activeSteps = [];
-
   RPStep _currentStep;
   int _currentStepIndex = 0;
   int _currentQuestionIndex = 1;
-
   StreamSubscription<StepStatus> _stepStatusSubscription;
   StreamSubscription<RPResult> _stepResultSubscription;
-
   bool navigableTask = false;
-
   @override
   initState() {
     // Instantiate the taskresult so it starts tracking time
     _taskResult = RPTaskResult.withParams(widget.task.identifier);
-
     // If it's navigable we don't want to show result on appbar
     if (widget.task is RPNavigableOrderedTask) {
       blocTask.updateTaskProgress(null);
@@ -61,7 +52,6 @@ class _RPUITaskState extends State<RPUITask> with CanSaveResult {
       // Sending the initial Task Progress so the Question UI can use it in the app bar
       blocTask.updateTaskProgress(RPTaskProgress(_currentQuestionIndex, widget.task.numberOfQuestionSteps));
     }
-
     // Subscribe to step status changes so the navigation can be triggered
     _stepStatusSubscription = blocTask.stepStatus.listen((data) async {
       switch (data) {
@@ -82,7 +72,6 @@ class _RPUITaskState extends State<RPUITask> with CanSaveResult {
             if (!navigableTask)
               blocTask.updateTaskProgress(RPTaskProgress(_currentQuestionIndex, widget.task.numberOfQuestionSteps));
           }
-
           // Calculating next step and then navigate there
           setState(() {
             _currentStep = _activeSteps.last;
@@ -90,7 +79,6 @@ class _RPUITaskState extends State<RPUITask> with CanSaveResult {
             _activeSteps.add(_currentStep);
           });
           _currentStepIndex++;
-
           _taskPageViewController.nextPage(duration: Duration(milliseconds: 400), curve: Curves.easeInOut);
           break;
         case StepStatus.Canceled:
@@ -110,7 +98,6 @@ class _RPUITaskState extends State<RPUITask> with CanSaveResult {
               blocTask.updateTaskProgress(RPTaskProgress(_currentQuestionIndex, widget.task.numberOfQuestionSteps));
             // await because we can only update the stepWidgets list while the current step is out of the screen
             await _taskPageViewController.previousPage(duration: Duration(milliseconds: 400), curve: Curves.easeInOut);
-
             setState(() {
               _activeSteps.removeLast();
               _currentStep = _activeSteps.last;
@@ -125,28 +112,23 @@ class _RPUITaskState extends State<RPUITask> with CanSaveResult {
           break;
       }
     });
-
     _stepResultSubscription = blocTask.stepResult.listen((stepResult) {
       _taskResult.setStepResultForIdentifier(stepResult.identifier, stepResult);
       blocTask.updateTaskResult(_taskResult);
     });
-
     setState(() {
       // Getting the first step
       _currentStep = widget.task.getStepAfterStep(null, null);
       _activeSteps.add(_currentStep);
     });
-
     super.initState();
   }
-
   @override
   createAndSendResult() {
     // Populate the result object with value and end the time tracker (set endDate)
     _taskResult.endDate = DateTime.now();
     widget.onSubmit(_taskResult);
   }
-
   void _showCancelConfirmationDialog() {
     showDialog(
       context: context,
@@ -178,9 +160,7 @@ class _RPUITaskState extends State<RPUITask> with CanSaveResult {
       },
     );
   }
-
   PageController _taskPageViewController = PageController(keepPage: false);
-
   @override
   Widget build(BuildContext context) {
     RPLocalizations locale = RPLocalizations.of(context);
@@ -236,7 +216,6 @@ class _RPUITaskState extends State<RPUITask> with CanSaveResult {
           ];
       }
     }
-
     return WillPopScope(
       onWillPop: () => blocTask.sendStatus(StepStatus.Canceled),
       child: Theme(
@@ -251,12 +230,10 @@ class _RPUITaskState extends State<RPUITask> with CanSaveResult {
             controller: _taskPageViewController,
             physics: NeverScrollableScrollPhysics(),
           ),
-          persistentFooterButtons: _taskPersistentFooterButtons(_currentStep),
         ),
       ),
     );
   }
-
   @override
   dispose() {
     _stepStatusSubscription.cancel();
