@@ -188,6 +188,53 @@ class _RPUITaskState extends State<RPUITask> with CanSaveResult {
     AppBar _taskAppBar(RPStep step) {
       switch (step.runtimeType) {
         case RPQuestionStep:
+          return AppBar(
+//            title: Text(recentTaskProgress != null ? "${recentTaskProgress?.current} ${locale?.translate('of') ?? 'of'} ${recentTaskProgress?.total}" : ""),
+            automaticallyImplyLeading: false,
+            backgroundColor: Colors.white,
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(
+                  Icons.cancel,
+                  color: Theme.of(context).accentColor,
+                ),
+                onPressed: () => blocTask.sendStatus(StepStatus.Canceled),
+              )
+            ],
+          );
+          break;
+        case RPFormStep:
+          return AppBar(
+//            title: Text(recentTaskProgress != null ? "${recentTaskProgress?.current} ${locale?.translate('of') ?? 'of'} ${recentTaskProgress?.total}" : ""),
+            automaticallyImplyLeading: false,
+            backgroundColor: Colors.white,
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(
+                  Icons.cancel,
+                  color: Theme.of(context).accentColor,
+                ),
+                onPressed: () => blocTask.sendStatus(StepStatus.Canceled),
+              )
+            ],
+          );
+          break;
+        case RPInstructionStep:
+          return AppBar(
+            title: Text(locale?.translate(step.title) ?? step.title),
+            automaticallyImplyLeading: false,
+            backgroundColor: Colors.white,
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(
+                  Icons.cancel,
+                  color: Theme.of(context).accentColor,
+                ),
+                onPressed: () => blocTask.sendStatus(StepStatus.Canceled),
+              )
+            ],
+          );
+          break;
         default:
           return null;
           break;
@@ -212,8 +259,8 @@ class _RPUITaskState extends State<RPUITask> with CanSaveResult {
                 : FlatButton(
                     onPressed: () => blocTask.sendStatus(StepStatus.Back),
                     child: Text(
-                      RPLocalizations.of(context)?.translate('Previous') ?? "PREVIOUS",
-                      style: TextStyle(color: Theme.of(context).primaryColor,
+                      RPLocalizations.of(context)?.translate('Previous') ?? "Previous",
+                      style: TextStyle(color: Colors.black,
                       fontFamily: 'Poppins-Normal'),
                     ),
                   ),
@@ -222,10 +269,12 @@ class _RPUITaskState extends State<RPUITask> with CanSaveResult {
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   return RaisedButton(
-                    color: Theme.of(context).accentColor,
+                    color: Colors.lightBlueAccent,
                     textColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
                     child: Text(
-                      RPLocalizations.of(context)?.translate('Next') ?? "NEXT",
+                      RPLocalizations.of(context)?.translate('Next') ?? "Next",
                       style: TextStyle(
                         fontFamily: 'Poppins-Normal',
                       ),
