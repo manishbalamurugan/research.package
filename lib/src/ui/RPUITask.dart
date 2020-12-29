@@ -259,7 +259,7 @@ class _RPUITaskState extends State<RPUITask> with CanSaveResult {
                 : FlatButton(
                     onPressed: () => blocTask.sendStatus(StepStatus.Back),
                     child: Text(
-                      RPLocalizations.of(context)?.translate('PREVIOUS') ?? "PREVIOUS",
+                      RPLocalizations.of(context)?.translate('PREVIOUS') ?? "Previous",
                       style: TextStyle(color: Theme.of(context).primaryColor),
                     ),
                   ),
@@ -271,7 +271,10 @@ class _RPUITaskState extends State<RPUITask> with CanSaveResult {
                     color: Theme.of(context).accentColor,
                     textColor: Colors.white,
                     child: Text(
-                      RPLocalizations.of(context)?.translate('NEXT') ?? "NEXT",
+                      RPLocalizations.of(context)?.translate('NEXT') ?? "Next",
+                      style: TextStyle(
+                        fontFamily: 'Poppins-Normal',
+                      ),
                     ),
                     onPressed: snapshot.data
                         ? () {
