@@ -251,7 +251,6 @@ class _RPUITaskState extends State<RPUITask> with CanSaveResult {
         data: Theme.of(context),
         child: Scaffold(
           resizeToAvoidBottomInset: true,
-          appBar: _taskAppBar(_currentStep),
           body: PageView.builder(
             itemBuilder: (BuildContext context, int position) {
               return _activeSteps[position].stepWidget;
