@@ -177,42 +177,7 @@ class _RPUITaskState extends State<RPUITask> with CanSaveResult {
           break;
         default:
           return <Widget>[
-            _activeSteps.length == 1 || !navigableTask
-                ? null
-                : FlatButton(
-                    onPressed: () => blocTask.sendStatus(StepStatus.Back),
-                    child: Text(
-                      RPLocalizations.of(context)?.translate('Previous') ?? "Previous",
-                      style: TextStyle(color: Colors.black,
-                      fontFamily: 'Poppins-Normal'),
-                    ),
-                  ),
-            StreamBuilder<bool>(
-              stream: blocQuestion.questionReadyToProceed,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return RaisedButton(
-                    color: Colors.lightBlueAccent,
-                    textColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
-                    child: Text(
-                      RPLocalizations.of(context)?.translate('Next') ?? "Next",
-                      style: TextStyle(
-                        fontFamily: 'Poppins-Normal',
-                      ),
-                    ),
-                    onPressed: snapshot.data
-                        ? () {
-                            blocTask.sendStatus(StepStatus.Finished);
-                          }
-                        : null,
-                  );
-                } else {
-                  return Container();
-                }
-              },
-            ),
+            Container()
           ];
       }
     }
