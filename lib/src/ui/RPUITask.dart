@@ -188,53 +188,6 @@ class _RPUITaskState extends State<RPUITask> with CanSaveResult {
     AppBar _taskAppBar(RPStep step) {
       switch (step.runtimeType) {
         case RPQuestionStep:
-          return AppBar(
-//            title: Text(recentTaskProgress != null ? "${recentTaskProgress?.current} ${locale?.translate('of') ?? 'of'} ${recentTaskProgress?.total}" : ""),
-            automaticallyImplyLeading: false,
-            backgroundColor: Colors.white,
-            actions: <Widget>[
-              IconButton(
-                icon: Icon(
-                  Icons.cancel,
-                  color: Theme.of(context).accentColor,
-                ),
-                onPressed: () => blocTask.sendStatus(StepStatus.Canceled),
-              )
-            ],
-          );
-          break;
-        case RPFormStep:
-          return AppBar(
-//            title: Text(recentTaskProgress != null ? "${recentTaskProgress?.current} ${locale?.translate('of') ?? 'of'} ${recentTaskProgress?.total}" : ""),
-            automaticallyImplyLeading: false,
-            backgroundColor: Colors.white,
-            actions: <Widget>[
-              IconButton(
-                icon: Icon(
-                  Icons.cancel,
-                  color: Theme.of(context).accentColor,
-                ),
-                onPressed: () => blocTask.sendStatus(StepStatus.Canceled),
-              )
-            ],
-          );
-          break;
-        case RPInstructionStep:
-          return AppBar(
-            title: Text(locale?.translate(step.title) ?? step.title),
-            automaticallyImplyLeading: false,
-            backgroundColor: Colors.white,
-            actions: <Widget>[
-              IconButton(
-                icon: Icon(
-                  Icons.cancel,
-                  color: Theme.of(context).accentColor,
-                ),
-                onPressed: () => blocTask.sendStatus(StepStatus.Canceled),
-              )
-            ],
-          );
-          break;
         default:
           return null;
           break;
